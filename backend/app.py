@@ -1,11 +1,11 @@
-from flask import Flask, request, jsonify, send_file, render_template
+from flask import Flask, request, jsonify, send_file, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import qrcode
 import os
 
-app = Flask(__name__)
-CORS(app)  # Libera CORS para qualquer origem (ajuste para segurança depois)
+app = Flask(__name__, static_folder='frontend_build/static', static_url_path='/static')
+CORS(app)
 
 # Banco de dados SQLite
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -35,8 +35,17 @@ def gerar_qrcode(codigo):
     return caminho
 
 @app.route('/')
-def home():
-    return render_template('index.html')
+def serve_index():
+    # Serve o arquivo index.html da pasta frontend_build
+    return send_from_directory('frontend_build', 'index.html')
+
+@app.route('/<path:path>')
+def serve_static_or_index(path):
+    # Tenta servir arquivo estático, se não existir, serve o index.html (para SPA)
+    if os.path.exists(os.path.join('frontend_build', path)):
+        return send_from_directory('frontend_build', path)
+    else:
+        return send_from_directory('frontend_build', 'index.html')
 
 @app.route('/cadastro', methods=['POST'])
 def cadastro():
@@ -67,8 +76,9 @@ def cadastro():
     db.session.add(ingresso)
     db.session.commit()
 
-    qr_titular = gerar_qrcode(codigo)
-    qr_acomp = gerar_qrcode(codigo_acomp) if codigo_acomp else None
+    gerar_qrcode(codigo)
+    if codigo_acomp:
+        gerar_qrcode(codigo_acomp)
 
     return jsonify({
         "msg": "Cadastro realizado!",
@@ -103,7 +113,7 @@ def validar(codigo):
 
     return "<h1>Erro desconhecido.</h1>", 500
 
-# Nova rota para acessar os QR codes em /tmp
+# Rota para servir QR codes gerados em /tmp/qrcodes/
 @app.route('/static/qrcodes/<filename>')
 def get_qrcode(filename):
     caminho = f"/tmp/qrcodes/{filename}"
@@ -111,7 +121,6 @@ def get_qrcode(filename):
         return send_file(caminho, mimetype='image/png')
     return "<h1>QR não encontrado</h1>", 404
 
-# Executa o servidor (Render exige host 0.0.0.0 e porta 10000)
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
