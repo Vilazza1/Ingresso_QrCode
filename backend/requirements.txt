@@ -1,9 +1,4 @@
-services:
-  - type: web
-    name: flask-backend
-    runtime: python
-    buildCommand: ""
-    startCommand: python app.py
-    envVars:
-      - key: FLASK_ENV
-        value: production
+flask
+flask-cors
+flask_sqlalchemy
+qrcode
