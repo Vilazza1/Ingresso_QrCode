@@ -3,10 +3,15 @@ Esse projeto foi desenvolvido para ajudar a empresa StrelaPet na organização d
 O objetivo principal do sistema é permitir o cadastro de convidados e o controle de acesso por meio de QR Codes únicos, tanto para o titular quanto para o acompanhante.
 
 📌 Funcionalidades
+
 ✅ Cadastro de convidados com ou sem acompanhante
+
 ✅ Geração de QR Code para cada ingresso (titular e acompanhante)
+
 ✅ Validação dos ingressos via leitura de QR Code
+
 ✅ Controle de uso do ingresso (impede reutilização)
+
 ✅ Visualização e download do QR Code gerado
 
 🧰 Tecnologias Utilizadas
