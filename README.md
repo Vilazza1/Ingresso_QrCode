@@ -1,66 +1,70 @@
 🎟️ Ingresso_QrCode
-Esse projeto foi desenvolvido para ajudar a empresa StrelaPet na organização do seu evento de 30 anos, que será realizado no dia 27/05/2025.
-O objetivo principal do sistema é permitir o cadastro de convidados e o controle de acesso por meio de QR Codes únicos, tanto para o titular quanto para o acompanhante.
+
+        Esse projeto foi desenvolvido para ajudar a empresa StrelaPet na organização do seu evento de 30 anos, que será realizado no dia 27/05/2025.
+        O objetivo principal do sistema é permitir o cadastro de convidados e o controle de acesso por meio de QR Codes únicos, tanto para o titular quanto para o acompanhante.
 
 📌 Funcionalidades
 
-✅ Cadastro de convidados com ou sem acompanhante
+        ✅ Cadastro de convidados com ou sem acompanhante
 
-✅ Geração de QR Code para cada ingresso (titular e acompanhante)
+        ✅ Geração de QR Code para cada ingresso (titular e acompanhante)
 
-✅ Validação dos ingressos via leitura de QR Code
+        ✅ Validação dos ingressos via leitura de QR Code
 
-✅ Controle de uso do ingresso (impede reutilização)
+        ✅ Controle de uso do ingresso (impede reutilização)
 
-✅ Visualização e download do QR Code gerado
+        ✅ Visualização e download do QR Code gerado
 
 🧰 Tecnologias Utilizadas
-🔙 Backend
-Python 3
+        
+        🔙 Backend
+                Python 3
 
-Flask – Microframework para construção da API REST
+                Flask – Microframework para construção da API REST
 
-Flask-CORS – Permite requisições entre domínios (CORS)
+                Flask-CORS – Permite requisições entre domínios (CORS)
 
-Flask-SQLAlchemy – ORM que simplifica a manipulação do banco SQLite
+                Flask-SQLAlchemy – ORM que simplifica a manipulação do banco SQLite
 
-qrcode – Biblioteca para geração de QR Codes
+                qrcode – Biblioteca para geração de QR Codes
 
-SQLite – Banco de dados leve e local
+                SQLite – Banco de dados leve e local
 
-🔜 Frontend
-Vue.js 3 – Framework reativo para construção da interface
+        🔜 Frontend
+                Vue.js 3 – Framework reativo para construção da interface
 
-Vite – Ferramenta moderna para build e hot reload
+                Vite – Ferramenta moderna para build e hot reload
 
-Axios – Biblioteca para fazer requisições HTTP com facilidade
+                Axios – Biblioteca para fazer requisições HTTP com facilidade
 
 🧠 Lógica de Funcionamento
-Cadastro e Geração dos Códigos
-Ao cadastrar um novo convidado, o sistema gera dois códigos únicos:
 
-Um para o titular (ING00001T)
+        Cadastro e Geração dos Códigos
+        Ao cadastrar um novo convidado, o sistema gera dois códigos únicos:
 
-Um para o acompanhante, se existir (ING00001A)
+        Um para o titular (ING00001T)
 
-Esses códigos são salvos no banco de dados e usados para gerar QR Codes individuais.
+        Um para o acompanhante, se existir (ING00001A)
 
-Os QR Codes são imagens salvas temporariamente no servidor e disponibilizadas via link.
+        Esses códigos são salvos no banco de dados e usados para gerar QR Codes individuais.
 
-Validação de Ingressos
-Quando o QR Code é escaneado, o sistema acessa a rota /validar/<codigo>.
+        Os QR Codes são imagens salvas temporariamente no servidor e disponibilizadas via link.
 
-A API verifica:
+        Validação de Ingressos
+        Quando o QR Code é escaneado, o sistema acessa a rota /validar/<codigo>.
 
-Se o código existe
+        A API verifica:
 
-Se já foi utilizado anteriormente
+        Se o código existe
 
-Se for um código válido e ainda não utilizado, o ingresso é marcado como usado e a entrada é autorizada.
+        Se já foi utilizado anteriormente
+        
+        Se for um código válido e ainda não utilizado, o ingresso é marcado como usado e a entrada é autorizada.
 
-Caso o código já tenha sido usado, o sistema exibe uma mensagem de erro, impedindo o acesso duplicado.
+        Caso o código já tenha sido usado, o sistema exibe uma mensagem de erro, impedindo o acesso duplicado.
 
 🚀 Como Executar o Projeto
+
 🔧 Requisitos
 Python 3 instalado
 
